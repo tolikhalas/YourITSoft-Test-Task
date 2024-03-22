@@ -1,5 +1,5 @@
 export enum TodoState {
-  Await,
-  InProgress,
-  Done,
+  Await = 'await',
+  InProgress = 'in progress',
+  Done = 'done',
 }
