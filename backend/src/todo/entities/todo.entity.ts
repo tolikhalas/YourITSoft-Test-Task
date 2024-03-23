@@ -16,13 +16,9 @@ export class Todo {
   })
   state: TodoState;
 
-  constructor(task?: string, state?: TodoState) {
-    if (task) {
-      this.task = task;
-    }
-    if (state) {
-      this.state = state;
-    } else {
+  constructor(partial?: Partial<Todo>) {
+    Object.assign(this, partial);
+    if (!this.state) {
       this.state = TodoState.Await;
     }
   }
