@@ -3,23 +3,25 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseFilters,
   BadRequestException,
   Put,
+  UsePipes,
 } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { BadIdExceptionFilter } from 'src/badid/bad-id.filter';
+import { TodoValidationPipe } from 'src/todo-validation/todo-validation.pipe';
 
 @Controller('todo')
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
   @Post()
+  @UsePipes(TodoValidationPipe)
   create(@Body() createTodoDto: CreateTodoDto) {
     return this.todoService.create(createTodoDto);
   }
@@ -39,10 +41,10 @@ export class TodoController {
   }
 
   @Put(':id')
-  @Patch(':id')
+  @UsePipes(TodoValidationPipe)
   @UseFilters(BadIdExceptionFilter)
   update(@Param('id') id: string, @Body() updateTodoDto: UpdateTodoDto) {
-    if (isNaN(+id)) {
+    if (isNaN(Number(id))) {
       throw new BadRequestException();
     }
     return this.todoService.update(+id, updateTodoDto);
