@@ -1,26 +1,17 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
-import { Todo } from "./todo/Todo.interface";
 import TodoList from "./components/TodoList";
 
 import "./App.css";
 import { TodoState } from "./todo/TodoState.enum";
-import http from "./api";
+import { useTodo } from "./todo/useTodo.hook";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, addTodo } = useTodo();
   const [inputTask, setTaskInputValue] = useState("");
   const [selectedState, setSelectedState] = useState<TodoState>(
     "await" as TodoState,
   );
-
-  useEffect(() => {
-    http
-      .get("/todo")
-      .then((res) => res.data)
-      .then((todos) => setTodos(todos))
-      .catch((err) => console.log(err));
-  }, []);
 
   const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskInputValue(e.target.value);
@@ -32,7 +23,7 @@ function App() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setTodos([...todos, { task: inputTask, state: selectedState }]);
+    addTodo({ task: inputTask, state: selectedState });
     setTaskInputValue("");
   };
 
