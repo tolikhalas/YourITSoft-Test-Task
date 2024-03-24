@@ -5,6 +5,7 @@ import { TodoLogger } from './shared/logger/logger.provider';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
+    cors: true,
   });
   app.useLogger(app.get(TodoLogger));
   await app.listen(3000);

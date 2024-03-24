@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
-import { Todo } from "./todo/Todo.interface";
 import TodoList from "./components/TodoList";
+import { TodoState } from "./todo/TodoState.enum";
+import { useTodo } from "./todo/useTodo.hook";
 
 import "./App.css";
-import { TodoState } from "./todo/TodoState.enum";
 
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const { todos, addTodo, updateTodoItem, deleteTodoItem } = useTodo();
   const [inputTask, setTaskInputValue] = useState("");
   const [selectedState, setSelectedState] = useState<TodoState>(
     "await" as TodoState,
@@ -23,23 +23,23 @@ function App() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setTodos([...todos, { task: inputTask, state: selectedState }]);
+    addTodo({ task: inputTask, state: selectedState });
     setTaskInputValue("");
   };
 
   return (
-    <div className="min-h-screen w-screen flex items-start justify-center p-40">
+    <div className="flex min-h-screen w-screen items-start justify-center p-40">
       <div className="grid">
-        <h1 className="text-3xl font-bold mb-4 text-center">Todo List</h1>
+        <h1 className="mb-4 text-center text-3xl font-bold">Todo List</h1>
         <div className="flex space-x-2">
           <input
-            className="px-4 py-2 rounded-lg"
+            className="rounded-lg px-4 py-2"
             type="text"
             value={inputTask}
             onChange={handleTaskChange}
           />
           <select
-            className="px-4 py-2 rounded-lg cursor-pointer"
+            className="cursor-pointer rounded-lg px-4 py-2"
             name="state"
             id="state"
             value={selectedState}
@@ -53,7 +53,11 @@ function App() {
             Add Todo
           </button>
         </div>
-        <TodoList todos={todos} />
+        <TodoList
+          todos={todos}
+          updateTodoItem={updateTodoItem}
+          deleteTodoItem={deleteTodoItem}
+        />
       </div>
     </div>
   );
