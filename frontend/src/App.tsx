@@ -1,10 +1,11 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 import { Todo } from "./todo/Todo.interface";
 import TodoList from "./components/TodoList";
 
 import "./App.css";
 import { TodoState } from "./todo/TodoState.enum";
+import http from "./api";
 
 function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -12,6 +13,14 @@ function App() {
   const [selectedState, setSelectedState] = useState<TodoState>(
     "await" as TodoState,
   );
+
+  useEffect(() => {
+    http
+      .get("/todo")
+      .then((res) => res.data)
+      .then((todos) => setTodos(todos))
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskInputValue(e.target.value);
@@ -28,18 +37,18 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen w-screen flex items-start justify-center p-40">
+    <div className="flex min-h-screen w-screen items-start justify-center p-40">
       <div className="grid">
-        <h1 className="text-3xl font-bold mb-4 text-center">Todo List</h1>
+        <h1 className="mb-4 text-center text-3xl font-bold">Todo List</h1>
         <div className="flex space-x-2">
           <input
-            className="px-4 py-2 rounded-lg"
+            className="rounded-lg px-4 py-2"
             type="text"
             value={inputTask}
             onChange={handleTaskChange}
           />
           <select
-            className="px-4 py-2 rounded-lg cursor-pointer"
+            className="cursor-pointer rounded-lg px-4 py-2"
             name="state"
             id="state"
             value={selectedState}
