@@ -1,7 +1,7 @@
 import { TodoState } from "./TodoState.enum";
 
 export interface Todo {
-  id: number;
+  id?: number;
   task: string;
   state: TodoState;
 }
