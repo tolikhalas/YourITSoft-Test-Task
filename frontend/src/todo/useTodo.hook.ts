@@ -33,10 +33,7 @@ export function useTodo() {
   const updateTodoItem = async (id: number, updatedTodo: TodoDto) => {
     try {
       const response = await http.put(`/todo/${id}`, updatedTodo);
-      const updatedTodos = todos.map((todo) =>
-        todo.id === id ? response.data : todo,
-      );
-      setTodos(updatedTodos);
+      setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));
     } catch (error) {
       console.error("Error updating todo:", error);
     }
