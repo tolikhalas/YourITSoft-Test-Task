@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Todo } from "../todo/Todo.interface";
-import { TodoDto } from "../todo/TodoDto.interface";
+import { Todo } from "../../todo/Todo.interface";
+import { TodoDto } from "../../todo/TodoDto.interface";
 import TodoItem from "./TodoItem";
 
 const TodoList: React.FC<{

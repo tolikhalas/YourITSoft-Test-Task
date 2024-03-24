@@ -1,6 +1,6 @@
-import { Todo } from "../todo/Todo.interface";
-import { TodoDto } from "../todo/TodoDto.interface";
-import { TodoState } from "../todo/TodoState.enum";
+import { Todo } from "../../todo/Todo.interface";
+import { TodoDto } from "../../todo/TodoDto.interface";
+import { TodoState } from "../../todo/TodoState.enum";
 
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
