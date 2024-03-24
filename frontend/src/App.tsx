@@ -7,7 +7,7 @@ import { TodoState } from "./todo/TodoState.enum";
 import { useTodo } from "./todo/useTodo.hook";
 
 function App() {
-  const { todos, addTodo } = useTodo();
+  const { todos, addTodo, deleteTodoItem } = useTodo();
   const [inputTask, setTaskInputValue] = useState("");
   const [selectedState, setSelectedState] = useState<TodoState>(
     "await" as TodoState,
@@ -53,7 +53,7 @@ function App() {
             Add Todo
           </button>
         </div>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} deleteTodoItem={deleteTodoItem} />
       </div>
     </div>
   );
