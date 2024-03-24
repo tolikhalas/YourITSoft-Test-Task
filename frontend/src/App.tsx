@@ -1,13 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 
 import TodoList from "./components/TodoList";
-
-import "./App.css";
 import { TodoState } from "./todo/TodoState.enum";
 import { useTodo } from "./todo/useTodo.hook";
 
+import "./App.css";
+
 function App() {
-  const { todos, addTodo, deleteTodoItem } = useTodo();
+  const { todos, addTodo, updateTodoItem, deleteTodoItem } = useTodo();
   const [inputTask, setTaskInputValue] = useState("");
   const [selectedState, setSelectedState] = useState<TodoState>(
     "await" as TodoState,
@@ -53,7 +53,11 @@ function App() {
             Add Todo
           </button>
         </div>
-        <TodoList todos={todos} deleteTodoItem={deleteTodoItem} />
+        <TodoList
+          todos={todos}
+          updateTodoItem={updateTodoItem}
+          deleteTodoItem={deleteTodoItem}
+        />
       </div>
     </div>
   );
