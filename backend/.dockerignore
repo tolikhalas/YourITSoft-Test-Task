@@ -1,0 +1,9 @@
+node_modules
+coverage
+dist
+.env.sample
+.eslintrc.js
+.gitignore
+.prettierrc
+bun.lockb
+README.md
