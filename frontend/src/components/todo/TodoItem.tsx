@@ -51,7 +51,7 @@ const TodoItem: React.FC<{
             value={updateTask}
             onChange={handleUpdateTask}
           />
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             <select
               className="cursor-pointer rounded-lg px-4 py-2"
               name="state"
@@ -75,7 +75,7 @@ const TodoItem: React.FC<{
       ) : (
         <>
           <span className="text-gray-700">{todo.task}</span>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             <span className="me-4 text-sm font-medium">
               {stateText[todo.state]}
             </span>
