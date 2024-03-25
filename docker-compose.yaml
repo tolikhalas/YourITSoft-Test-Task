@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  react-app:
+    container_name: react_compose_container
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3030:3030"
+    volumes:
+      - ./client:/app
+    env_file:
+      - ./client/.env
+    networks:
+      - youritsoftware
+    depends_on:
+      - nestjs-app
+
+  nestjs-app:
+    container_name: nestjs_compose_container
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./server/.env.development.local
+    volumes:
+      - ./server:/app
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres_compose_container
+    image: postgres:latest
+    env_file:
+      - ./server/.env.development.local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data: {}
+
+networks:
+  youritsoftware:
+    external: false
