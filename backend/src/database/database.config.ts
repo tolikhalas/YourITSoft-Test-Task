@@ -10,11 +10,11 @@ export const DatabaseModuleConfig: (
   configService: ConfigService,
 ) => ({
   type: 'postgres',
-  host: configService.getOrThrow('DB_HOST'),
-  port: configService.getOrThrow('DB_PORT'),
-  database: configService.getOrThrow('DB_DATABASE'),
-  username: configService.getOrThrow('DB_USERNAME'),
-  password: configService.getOrThrow('DB_PASSWORD'),
+  host: configService.getOrThrow('POSTGRES_HOST'),
+  port: configService.getOrThrow('POSTGRES_PORT'),
+  database: configService.getOrThrow('POSTGRES_DATABASE'),
+  username: configService.getOrThrow('POSTGRES_USERNAME'),
+  password: configService.getOrThrow('POSTGRES_PASSWORD'),
   entities: [Todo],
-  synchronize: configService.getOrThrow('DB_SYNCHRONIZE'),
+  synchronize: configService.getOrThrow('POSTGRES_SYNCHRONIZE'),
 });
