@@ -4,14 +4,14 @@ services:
   react-app:
     container_name: react_compose_container
     build:
-      context: ./frontend
+      context: ./client
       dockerfile: Dockerfile
     ports:
       - "3030:3030"
     volumes:
-      - ./frontend:/app
+      - ./client:/app
     env_file:
-      - ./frontend/.env
+      - ./client/.env
     networks:
       - youritsoftware
     depends_on:
@@ -20,14 +20,14 @@ services:
   nestjs-app:
     container_name: nestjs_compose_container
     build:
-      context: ./backend
+      context: ./server
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     env_file:
-      - ./backend/.env.development.local
+      - ./server/.env.development.local
     volumes:
-      - ./backend:/app
+      - ./server:/app
     depends_on:
       - postgres
 
@@ -35,7 +35,7 @@ services:
     container_name: postgres_compose_container
     image: postgres:latest
     env_file:
-      - ./backend/.env.development.local
+      - ./server/.env.development.local
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
